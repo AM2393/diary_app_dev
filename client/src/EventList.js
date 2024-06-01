@@ -41,6 +41,7 @@ function EventList() {
           setShowConfirmDeleteDialog={setShowConfirmDeleteDialog}
         />
       ) : null}
+      {!filteredEventList.length ? (<h1 style={{marginTop: "2rem", color: "yellow"}}>Žádné nadcházející události</h1>) : null}
       {filteredEventList.map((event) => {
         return (
           <EventCard

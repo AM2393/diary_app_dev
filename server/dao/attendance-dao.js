@@ -41,7 +41,7 @@ function update(attendance) {
 function remove(userId, eventId) {
   try {
     const attendance = get(userId, eventId);
-    if (attendance) 
+    if (attendance) {
       const filePath = path.join(attendanceFolderPath, attendance.file);
       fs.unlinkSync(filePath);
     }

@@ -26,8 +26,10 @@ function EventForm({ setShowEventForm, event }) {
           try {
             if (event.id) {
               formData.id = event.id;
+              formData.date = eventDateToInput(formData.date) + ':00.000+02:00';
               await handlerMap.handleUpdate(formData);
             } else {
+              formData.date = eventDateToInput(formData.date) + ":00.000+02:00";
               await handlerMap.handleCreate(formData);
             }
 
@@ -64,11 +66,11 @@ function EventForm({ setShowEventForm, event }) {
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Datum konání</Form.Label>
             <Form.Control
-              type="text"
+              type="datetime-local"
               name="date"
               // required
               defaultValue={
-                event.date ? eventDateToInput(event.date) : undefined
+                event.date ? eventDateToInput(event.date) : eventDateToInputMinutes(1).slice(0,16)
               }
             />
           </Form.Group>
@@ -120,6 +122,17 @@ function eventDateToInput(date) {
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
   const day = date.getDate().toString().padStart(2, "0");
   const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+
+function eventDateToInputMinutes(hrsOffset) {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  const hoursWithOffset = date.getHours() + 1
+  const hours = hoursWithOffset.toString().padStart(2, "0");
   const minutes = date.getMinutes().toString().padStart(2, "0");
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
