@@ -10,11 +10,13 @@ import Container from "react-bootstrap/esm/Container.js";
 import Icon from "@mdi/react";
 import { mdiPlusBoxOutline, mdiPlusBoxMultipleOutline } from "@mdi/js";
 import ConfirmDeleteDialog from "./ConfirmDeleteDialog.js";
+import ConfirmDoneDialog from "./ConfirmDoneDialog.js";
 
 function EventList() {
   const { eventList } = useContext(EventListContext);
   const [showEventForm, setShowEventForm] = useState(false);
   const [showConfirmDeleteDialog, setShowConfirmDeleteDialog] = useState(false);
+  const [showConfirmDoneDialog, setShowConfirmDoneDialog] = useState(false);
 
   const filteredEventList = eventList.filter(
     (event) => new Date(event.date) > new Date()
@@ -23,14 +25,14 @@ function EventList() {
   return (
     <Container>
       <div style={{ display: "flex", justifyContent: "flex-end", gap: "8px" }}>
-        <Button variant="info" onClick={() => setShowEventForm({})} style={{color: 'royalblue'}}>
-          <Icon path={mdiPlusBoxOutline} size={1} color={"royalblue"} /> Nová
-          událost
+        <Button onClick={() => setShowEventForm({})} style={{color: 'yellow', backgroundColor: '#ce0160', fontWeight: 'bold', border: '2px solid yellow'}}>
+          <Icon path={mdiPlusBoxOutline} size={1} color={"yellow"} /> Nový
+          úkol
         </Button>
-        <Button variant="info" disabled style={{color: 'royalblue'}}> 
+        {/* <Button variant="info" disabled style={{color: 'royalblue'}}> 
           <Icon path={mdiPlusBoxMultipleOutline} size={1} color={"royalblue"} />{" "}
           Nové události
-        </Button>
+        </Button> */}
       </div>
       {!!showEventForm ? (
         <EventForm event={showEventForm} setShowEventForm={setShowEventForm} />
@@ -41,7 +43,13 @@ function EventList() {
           setShowConfirmDeleteDialog={setShowConfirmDeleteDialog}
         />
       ) : null}
-      {!filteredEventList.length ? (<h1 style={{marginTop: "2rem", color: "yellow"}}>Žádné nadcházející události</h1>) : null}
+      {!!showConfirmDoneDialog ? (
+        <ConfirmDoneDialog
+          event={showConfirmDoneDialog}
+          setShowConfirmDoneDialog={setShowConfirmDoneDialog}
+        />
+      ) : null}
+      {!filteredEventList.length ? (<h1 style={{marginTop: "2rem", color: "#ffd900"}}>Zatím nemáte žádný úkol</h1>) : null}
       {filteredEventList.map((event) => {
         return (
           <EventCard
@@ -49,6 +57,7 @@ function EventList() {
             event={event}
             setShowEventForm={setShowEventForm}
             setShowConfirmDeleteDialog={setShowConfirmDeleteDialog}
+            setShowConfirmDoneDialog={setShowConfirmDoneDialog}
           />
         );
       })}

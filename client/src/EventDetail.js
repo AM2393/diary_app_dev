@@ -1,4 +1,4 @@
-import WillAttendBadge from "./WillAttendBadge";
+import EventDescription from "./EventDescription";
 import AttendeeDecision from "./AttendeeDecision";
 
 function EventDetail({ event }) {
@@ -15,7 +15,7 @@ function EventDetail({ event }) {
       <div style={{ fontSize: "22px" }}>{event.name}</div>
       <div className="row" style={{ margin: "0" }}>
         <div className="col-12 col-sm-6" style={{ padding: "0" }}>
-          <WillAttendBadge count={willAttendCount} />
+          <EventDescription description={event.description}/>
         </div>
         <div className="col-12 col-md-6" style={decisionColumnStyle()}>
           <AttendeeDecision event={event} />

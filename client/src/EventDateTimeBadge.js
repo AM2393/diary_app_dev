@@ -17,7 +17,7 @@ function EventDateTimeBadge({ event }) {
 function componentStyle() {
   return {
     width: "88px",
-    backgroundColor: "#d63232",
+    backgroundColor: "royalblue",
     display: "grid",
     height: "max-content",
   };
@@ -30,6 +30,7 @@ function dateStyle() {
     gap: "4px",
     padding: "8px",
     fontSize: "22px",
+    fontWeight: 'bold',
     color: "white",
     lineHeight: 1,
   };
@@ -40,9 +41,10 @@ function timeStyle() {
     display: "flex",
     justifyContent: "center",
     fontSize: "20px",
+    fontWeight: 'bold',
     lineHeight: 1,
     padding: "4px 4px 8px 4px",
-    background: "#187bcd",
+    background: "orange",
     color: "white",
   };
 }

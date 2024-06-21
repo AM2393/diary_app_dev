@@ -9,7 +9,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 import Icon from "@mdi/react";
-import { mdiVolleyball, mdiLogout } from "@mdi/js";
+import { mdiCheckboxMarkedCircleAutoOutline, mdiLogout } from "@mdi/js";
 import Button from "react-bootstrap/esm/Button";
 
 function NavBar() {
@@ -21,14 +21,15 @@ function NavBar() {
       <Container>
         <Navbar.Brand>
           <Button style={brandStyle()} onClick={() => navigate("/")}>
-            <Icon path={mdiVolleyball} size={1} color={"lightgreen"} spin={5} />
-            VOLEJBALALÁCI
+            <Icon path={mdiCheckboxMarkedCircleAutoOutline} size={1} color={"#f9d960"} />
+            TOAMUDO
           </Button>
         </Navbar.Brand>
         <Nav>
           <NavDropdown
-            title={loggedInUser ? loggedInUser.name : "Přihlaš se"}
+            title={loggedInUser ? loggedInUser.name : "Přihlášení uživatele"}
             drop={"start"}
+            style={{backgroundColor: "#f18f44", borderRadius: '8px'}}
           >
             {getUserMenuList({ userList, loggedInUser, handlerMap })}
           </NavDropdown>
@@ -39,7 +40,7 @@ function NavBar() {
 }
 
 function componentStyle() {
-  return { backgroundColor: "#ddf8" };
+  return { backgroundColor: "#153af4" };
 }
 
 function brandStyle() {
@@ -47,8 +48,8 @@ function brandStyle() {
     display: "flex",
     alignItems: "center",
     gap: "8px",
-    color: "lightgreen",
-    border: "1px solid cyan"
+    color: "#f9d960",
+    border: "1px solid #f9d960"
   };
 }
 

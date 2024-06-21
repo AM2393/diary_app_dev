@@ -1,33 +1,24 @@
 import { useContext, useState } from "react";
-import { EventContext } from "./EventContext.js";
-import { UserContext } from "./UserContext.js";
+import { EventListContext } from "./EventListContext.js";
 
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import CloseButton from "react-bootstrap/CloseButton";
 import Alert from "react-bootstrap/Alert";
-import Editor from "react-simple-wysiwyg";
 
 import Icon from "@mdi/react";
 import { mdiLoading } from "@mdi/js";
 
-function MessageForm({ setShowMessageForm, event }) {
-  const { state, handlerMap } = useContext(EventContext);
-  const { loggedInUser } = useContext(UserContext);
+function ConfirmDoneDialog({ setShowConfirmDoneDialog, event }) {
+  const { state, handlerMap } = useContext(EventListContext);
   const [showAlert, setShowAlert] = useState(null);
-  const [html, setHtml] = useState("");
-
-  function onChange(e) {
-    setHtml(e.target.value);
-  }
-
   const isPending = state === "pending";
 
   return (
-    <Modal show={true} onHide={() => setShowMessageForm(false)}>
+    <Modal show={true} onHide={() => setShowConfirmDoneDialog(false)}>
       <Modal.Header>
-        <Modal.Title>Vytvořit zprávu</Modal.Title>
-        <CloseButton onClick={() => setShowMessageForm(false)} />
+        <Modal.Title>Dokončit úkol</Modal.Title>
+        <CloseButton onClick={() => setShowConfirmDoneDialog(false)} />
       </Modal.Header>
       <Modal.Body style={{ position: "relative" }}>
         <Alert
@@ -36,7 +27,7 @@ function MessageForm({ setShowMessageForm, event }) {
           dismissible
           onClose={() => setShowAlert(null)}
         >
-          <Alert.Heading>Nepodařilo se vytvořit úkol</Alert.Heading>
+          <Alert.Heading>Nepodařilo se dokončit úkol</Alert.Heading>
           <pre>{showAlert}</pre>
         </Alert>
         {isPending ? (
@@ -44,34 +35,30 @@ function MessageForm({ setShowMessageForm, event }) {
             <Icon path={mdiLoading} size={2} spin />
           </div>
         ) : null}
-        <Editor value={html} onChange={onChange} />
+        Opravdu chcete dokončit úkol <b>"{event.name}"</b>?
       </Modal.Body>
       <Modal.Footer>
         <Button
           variant="secondary"
-          onClick={() => setShowMessageForm(false)}
+          onClick={() => setShowConfirmDoneDialog(false)}
           disabled={isPending}
         >
           Zavřít
         </Button>
         <Button
-          variant="primary"
+          variant="success"
           disabled={isPending}
-          onClick={async () => {
+          onClick={async (e) => {
             try {
-              await handlerMap.handleCreateMessage({
-                text: html,
-                eventId: event.id,
-                userId: loggedInUser.id,
-              });
-              setShowMessageForm(false);
+              await handlerMap.handleDelete({ id: event.id });
+              setShowConfirmDoneDialog(false);
             } catch (e) {
               console.error(e);
               setShowAlert(e.message);
             }
           }}
         >
-          Vytvořit
+          Dokončit
         </Button>
       </Modal.Footer>
     </Modal>
@@ -93,4 +80,4 @@ function pendingStyle() {
   };
 }
 
-export default MessageForm;
+export default ConfirmDoneDialog;

@@ -11,7 +11,7 @@ const schema = {
     id: { type: "string", minLength: 32, maxLength: 32 },
     date: { type: "string", format: "date-time" },
     name: { type: "string", minLength: 3 },
-    desc: { type: "string" },
+    description: { type: "string", maxLength: 120 },
   },
   required: ["id"],
   additionalProperties: false,

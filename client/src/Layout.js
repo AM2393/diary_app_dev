@@ -12,7 +12,7 @@ const Layout = () => {
         <Outlet />
       </div>
       <div className={"card-footer text-light"} style={footerStyle()}>
-        © Ivo Milota a Amulanga Nimejeva
+        © Amulanga Nimejeva
       </div>
     </>
   );
@@ -23,13 +23,13 @@ function bodyStyle() {
     overflow: "auto",
     padding: "16px",
     flex: "1",
-    borderTop: "royalblue 4px solid",
-    borderBottom: "royalblue 4px solid",
+    borderTop: "#1671cf 4px solid",
+    borderBottom: "#1671cf 4px solid",
   };
 }
 
 function footerStyle() {
-  return { padding: "8px", textAlign: "center", backgroundColor: "#ddf8" };
+  return { padding: "8px", textAlign: "center", backgroundColor: "#153af4" };
 }
 
 export default Layout;

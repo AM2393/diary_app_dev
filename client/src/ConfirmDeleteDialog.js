@@ -17,7 +17,7 @@ function ConfirmDeleteDialog({ setShowConfirmDeleteDialog, event }) {
   return (
     <Modal show={true} onHide={() => setShowConfirmDeleteDialog(false)}>
       <Modal.Header>
-        <Modal.Title>Smazat událost</Modal.Title>
+        <Modal.Title>Smazat úkol</Modal.Title>
         <CloseButton onClick={() => setShowConfirmDeleteDialog(false)} />
       </Modal.Header>
       <Modal.Body style={{ position: "relative" }}>
@@ -27,7 +27,7 @@ function ConfirmDeleteDialog({ setShowConfirmDeleteDialog, event }) {
           dismissible
           onClose={() => setShowAlert(null)}
         >
-          <Alert.Heading>Nepodařilo se vytvořit událost</Alert.Heading>
+          <Alert.Heading>Nepodařilo se vytvořit úkol</Alert.Heading>
           <pre>{showAlert}</pre>
         </Alert>
         {isPending ? (
@@ -35,7 +35,7 @@ function ConfirmDeleteDialog({ setShowConfirmDeleteDialog, event }) {
             <Icon path={mdiLoading} size={2} spin />
           </div>
         ) : null}
-        Opravdu chcete smazat událost {event.name}?
+        Opravdu chcete smazat úkol <b>"{event.name}"</b>?
       </Modal.Body>
       <Modal.Footer>
         <Button

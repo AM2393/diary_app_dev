@@ -42,7 +42,7 @@ function componentStyle() {
     display: "flex",
     flexDirection: "column",
     overflow: "hidden",
-    backgroundColor: "#187bcd",
+    backgroundColor: "#00007E",
   };
 }
 

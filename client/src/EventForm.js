@@ -22,7 +22,6 @@ function EventForm({ setShowEventForm, event }) {
           e.preventDefault();
           e.stopPropagation();
           var formData = Object.fromEntries(new FormData(e.target));
-          // formData.date = new Date(formData.date).toISOString();
           try {
             if (event.id) {
               formData.id = event.id;
@@ -43,7 +42,7 @@ function EventForm({ setShowEventForm, event }) {
         <Modal.Header>
           <Modal.Title>{`${
             event.id ? "Upravit" : "Vytvořit"
-          } událost`}</Modal.Title>
+          } úkol`}</Modal.Title>
           <CloseButton onClick={() => setShowEventForm(false)} />
         </Modal.Header>
         <Modal.Body style={{ position: "relative" }}>
@@ -53,7 +52,7 @@ function EventForm({ setShowEventForm, event }) {
             dismissible
             onClose={() => setShowAlert(null)}
           >
-            <Alert.Heading>Nepodařilo se vytvořit událost</Alert.Heading>
+            <Alert.Heading>Nepodařilo se vytvořit nebo upravit úkol</Alert.Heading>
             <pre>{showAlert}</pre>
           </Alert>
 
@@ -64,7 +63,7 @@ function EventForm({ setShowEventForm, event }) {
           ) : null}
 
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Datum konání</Form.Label>
+            <Form.Label>Termín do</Form.Label>
             <Form.Control
               type="datetime-local"
               name="date"
@@ -75,12 +74,23 @@ function EventForm({ setShowEventForm, event }) {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Název událost</Form.Label>
+            <Form.Label>Název úkolu</Form.Label>
             <Form.Control
               type="text"
               name="name"
               // required
               defaultValue={event.name}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <Form.Label>Popis úkolu (nepovinný)</Form.Label>
+            <Form.Control
+              as='textarea'
+              rows={3}
+              name="description"
+              // required
+              defaultValue={event.description}
+              placeholder="Zadejte popis úkolu..."
             />
           </Form.Group>
         </Modal.Body>
